@@ -1,0 +1,140 @@
+* {
+    image-rendering: pixelated;
+}
+
+html,
+body {
+    /*background-color: #018281; */
+    /*background-color: #8dc8e8;*/
+    background-color: #f5b0d1;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.window {
+    position: absolute;
+    z-index: 9;
+    display:none;
+}
+
+.window[data-song] {
+    max-width:197px;
+}
+
+.window .flex-container {
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+.title-bar {
+    cursor: grab;
+    z-index: 10;
+    flex:none;
+}
+
+.title-bar.grabbing {
+    cursor: grabbing;
+}
+
+.title-bar-text {
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.albumArt {
+    width:175px;
+    height:175px;
+    display:block;
+    border-bottom:1px solid #808080;
+    background-size:contain;
+}
+
+.songName {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.artistName {
+    
+    margin:0;
+}
+
+.field-row {
+    padding:20px 0;
+}
+
+.playButton,
+.playButton:not(:disabled):active {
+    width:100%;
+    font-size:22px;
+    padding:0;
+    height:50px;
+}
+
+.window .title-bar.inactive ~ div {
+    filter: grayscale(40%);
+}
+
+.window-body {
+    margin:0;
+    flex:auto;
+}
+
+.window-inner {
+    padding:8px;
+}
+
+.window-inner p:first-child {
+    margin-top:0;
+}
+
+.window-inner p:last-child {
+    margin-bottom:0;
+}
+
+.bevelled {
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    border: none;
+  }
+
+
+a.linksButton {
+    color:#111;
+    display:block;
+    width: 100%;
+    font-size: 11px;
+    text-decoration:none;
+    text-align:center;
+    padding: 15px 0;
+    background: silver;
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+    margin-bottom:8px;
+}
+
+a.linksButton:last-of-type {
+    margin-bottom:0;
+}
+
+a.linksButton:focus {
+    outline: 1px dotted #000;
+    outline-offset: -4px;
+}
+
+a.linksButton:active {
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
+}
+
+a {
+    color:#f9c2ca
+}
