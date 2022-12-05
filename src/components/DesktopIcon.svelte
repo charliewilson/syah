@@ -5,8 +5,8 @@ export let icon;
 export let name;
 
 function iconClick(e) {
-    window.showWindow();
-    // console.log(window);
+    window.show();
+    console.log(window);
 }
 </script>
 

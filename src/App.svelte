@@ -1,7 +1,7 @@
 <script>
 	import DesktopIcon from "./components/DesktopIcon.svelte";
   import AboutWindow from "./components/AboutWindow.svelte";
-
+  
   let aboutWindow;
 </script>
 
@@ -22,4 +22,4 @@
   icon="folder"
   name="twenty-five" />
 
-<AboutWindow bind:this={aboutWindow}/>
+<AboutWindow bind:aboutWindow/>
