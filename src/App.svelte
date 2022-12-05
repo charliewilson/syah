@@ -1,8 +1,10 @@
 <script>
 	import DesktopIcon from "./components/DesktopIcon.svelte";
   import AboutWindow from "./components/AboutWindow.svelte";
+  import LinksWindow from "./components/LinksWindow.svelte";
   
   let aboutWindow;
+  let linksWindow;
 </script>
 
 <DesktopIcon
@@ -10,7 +12,7 @@
   icon="about"
   name="About" />
 <DesktopIcon
-  window="linksWindow"
+  window={linksWindow}
   icon="links"
   name="Links" />
 <DesktopIcon
@@ -23,3 +25,4 @@
   name="twenty-five" />
 
 <AboutWindow bind:aboutWindow/>
+<LinksWindow bind:linksWindow/>

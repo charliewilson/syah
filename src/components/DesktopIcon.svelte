@@ -1,17 +1,13 @@
 <script>
-//todo
+import { openWindow } from "../assets/js/WindowStack";
+
 export let window;
 export let icon;
 export let name;
-
-function iconClick(e) {
-    window.show();
-    console.log(window);
-}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="desktopIcon" on:click={iconClick}>
+<div class="desktopIcon" on:click={openWindow(window)}>
     <img alt="{name}" src="./icons/{icon}.png">
     <span>{name}</span>
 </div>
@@ -38,7 +34,4 @@ div.desktopIcon span {
     margin-top:5px;
     text-align:center;
 }
-/* div.desktopIcon.light span {
-    color:#111;
-} */
 </style>
