@@ -3,9 +3,9 @@ import { writable } from 'svelte/store';
 export const WindowStackStore = writable([]);
 
 //DEBUG
-WindowStackStore.subscribe(value => {
-  console.log(value);
-});
+// WindowStackStore.subscribe(value => {
+//   console.log(value);
+// });
 
 export function openWindow(windowNode) {
   WindowStackStore.update((stack) => {
@@ -20,9 +20,16 @@ export function closeWindow(windowNode) {
       return el != windowNode;
     });
   });
+}
 
-  //window is actually hidden from the Window.svelte side
-  //this just removes it from the stack.
+export function activateWindow(windowNode) {
+  WindowStackStore.update((stack) => {
+    let newstack = stack.filter(function(el){
+      return el != windowNode;
+    });
+    newstack.unshift(windowNode);
+    return newstack;
+  });
 }
 
 // function makeWindowActive(windowID) {

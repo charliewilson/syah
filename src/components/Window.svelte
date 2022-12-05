@@ -1,5 +1,5 @@
 <script>
-    import { WindowStackStore, closeWindow } from "../assets/js/WindowStack";
+    import { WindowStackStore, closeWindow, activateWindow } from "../assets/js/WindowStack";
 
     const windowStackMaxPosition = 999;
 
@@ -46,11 +46,11 @@
                 windowActive = false;
             }
         }
-        console.log(windowID+" z: ", value.indexOf(win));
     });
 
     function startDrag(e) {
         dragging = true;
+        activateWindow(win)
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:
@@ -104,7 +104,10 @@
 <div id="{windowID}" class="window"
 style:width="{windowWidth != null ? windowWidth+'px' : 'auto'}"
 style:height="{windowHeight != null ? windowHeight+'px' : 'auto'}"
-style:display="{windowVisible ? 'block' : 'none'}" bind:this={win}>
+style:display="{windowVisible ? 'block' : 'none'}"
+style:z-index="{windowStackPosition}"
+on:mousedown={activateWindow(win)}
+bind:this={win}>
     <div class="flex-container">
         <div id="{windowID}Header" class="title-bar"
         class:grabbing={dragging}
