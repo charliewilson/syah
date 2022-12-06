@@ -6,7 +6,6 @@
 <Window
     bind:windowObject={aboutWindow}
     windowTitle="About syahOS"
-    windowID="aboutWindow"
     windowBackground="/apps/about/assets/background.png"
     >
     <div class="flex-container">

@@ -2,27 +2,34 @@
 	import DesktopIcon from "./components/DesktopIcon.svelte";
   import AboutWindow from "./components/AboutWindow.svelte";
   import LinksWindow from "./components/LinksWindow.svelte";
+  import CrtFolderWindow from "./components/CrtFolderWindow.svelte";
+  import TwentyfiveFolderWindow from "./components/TwentyfiveFolderWindow.svelte";
   
   let aboutWindow;
   let linksWindow;
+  let crtFolderWindow;
+  let twentyfiveFolderWindow;
 </script>
 
 <DesktopIcon
-  window={aboutWindow}
+  targetWindow={aboutWindow}
   icon="about"
   name="About" />
 <DesktopIcon
-  window={linksWindow}
+  targetWindow={linksWindow}
   icon="links"
   name="Links" />
 <DesktopIcon
-  window="crtFolderWindow"
+  targetWindow={crtFolderWindow}
   icon="folder"
   name="CRT" />
 <DesktopIcon
-  window="twentyfiveFolderWindow"
+  targetWindow={twentyfiveFolderWindow}
   icon="folder"
   name="twenty-five" />
 
 <AboutWindow bind:aboutWindow/>
 <LinksWindow bind:linksWindow/>
+
+<CrtFolderWindow bind:crtFolderWindow/>
+<TwentyfiveFolderWindow bind:twentyfiveFolderWindow/>

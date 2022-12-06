@@ -2,12 +2,8 @@ import { writable } from 'svelte/store';
 
 export const WindowStackStore = writable([]);
 
-//DEBUG
-// WindowStackStore.subscribe(value => {
-//   console.log(value);
-// });
-
 export function openWindow(windowNode) {
+  console.log(windowNode);
   WindowStackStore.update((stack) => {
     stack.unshift(windowNode.getNode());
     return stack;
@@ -31,10 +27,3 @@ export function activateWindow(windowNode) {
     return newstack;
   });
 }
-
-// function makeWindowActive(windowID) {
-//   var el = document.getElementById(windowID);
-//   window.openWindows = arrayRemove(window.openWindows, el);
-//   window.openWindows.unshift(el);
-//   updateWindows();
-// }

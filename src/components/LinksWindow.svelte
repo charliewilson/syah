@@ -6,7 +6,6 @@
 <Window
     bind:windowObject={linksWindow}
     windowTitle="syahLinks"
-    windowID="linksWindow"
     windowWidth = 250
     >
     <div class="window-inner">

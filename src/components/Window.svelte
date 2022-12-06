@@ -5,12 +5,12 @@
 
     export let windowTitle = "Window";
     export let windowVisible = false;
-    export let windowID;
     export let windowBackground = false;
-    export let windowWidth = 300;
+    export let windowWidth = null;
     export let windowHeight = null;    
     export let windowActive = false;
     export let windowStackPosition = 0;
+    export let windowBackgroundColour = "#EEE";
 
     let win,
         dragging = false,
@@ -101,7 +101,7 @@
     }
 </script>
 
-<div id="{windowID}" class="window"
+<div class="window"
 style:width="{windowWidth != null ? windowWidth+'px' : 'auto'}"
 style:height="{windowHeight != null ? windowHeight+'px' : 'auto'}"
 style:display="{windowVisible ? 'block' : 'none'}"
@@ -109,7 +109,7 @@ style:z-index="{windowStackPosition}"
 on:mousedown={activateWindow(win)}
 bind:this={win}>
     <div class="flex-container">
-        <div id="{windowID}Header" class="title-bar"
+        <div class="title-bar"
         class:grabbing={dragging}
         class:inactive={!windowActive}
         on:pointerdown={startDrag}>
@@ -123,7 +123,7 @@ bind:this={win}>
             <slot></slot>
         </div>
         {:else}
-        <div class="window-body" style="background:#EEE; width:100%; overflow:auto;">
+        <div class="window-body" style="background:{windowBackgroundColour}; width:100%; overflow:auto;">
             <slot></slot>
         </div>
         {/if}       

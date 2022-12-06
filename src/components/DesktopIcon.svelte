@@ -1,13 +1,18 @@
 <script>
+// @ts-nocheck
+
 import { openWindow } from "../assets/js/WindowStack";
 
-export let window;
+export let targetWindow;
 export let icon;
 export let name;
+export let externalLink = "";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="desktopIcon" on:click={openWindow(window)}>
+<div
+class="desktopIcon"
+on:click={(externalLink !== "") ? window.open(externalLink, '_blank') : openWindow(targetWindow)}>
     <img alt="{name}" src="./icons/{icon}.png">
     <span>{name}</span>
 </div>
