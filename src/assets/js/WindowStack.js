@@ -3,7 +3,6 @@ import { writable } from 'svelte/store';
 export const WindowStackStore = writable([]);
 
 export function openWindow(windowNode) {
-  console.log(windowNode);
   WindowStackStore.update((stack) => {
     stack.unshift(windowNode.getNode());
     return stack;

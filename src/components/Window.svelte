@@ -11,23 +11,30 @@
     export let windowActive = false;
     export let windowStackPosition = 0;
     export let windowBackgroundColour = "#EEE";
+    export let windowSoundObject = null;
+    export let windowSoundName = null;
+    export let isPlaying = false;
+    export let soundPosition = 0;
 
     let win,
         dragging = false,
         pos1 = 0,
         pos2 = 0,
         pos3 = 0,
-        pos4 = 0;
+        pos4 = 0,
+        soundInterval = null;
 
     export const windowObject = {
         toggle() {
             windowVisible = !windowVisible
+            stopSound();
         },
         show() {
             windowVisible = true;
         },
         hide() {
-            windowVisible = false
+            windowVisible = false;
+            stopSound();
         },
         getNode() {
             return win;
@@ -97,6 +104,51 @@
         win.style.left = 0;
         } else if (((win.offsetLeft - pos1) + win.offsetWidth) > window.innerWidth) {
         win.style.left = window.innerWidth - win.offsetWidth;
+        }
+    }
+
+    export function playSound() {
+        if (windowSoundName && windowSoundObject) {
+            windowSoundObject.play();
+
+            soundInterval = setInterval(function(){
+                let duration = windowSoundObject.duration()
+                let seek = windowSoundObject.seek();
+                soundPosition = (seek/duration) * 100;
+            }, 1000);
+        } else {
+            console.error("Error: windowSoundName or windowSoundObject invalid!");
+        }
+    }
+
+    export function pauseSound() {
+        if (windowSoundName && windowSoundObject) {
+            windowSoundObject.pause();
+            clearInterval(soundInterval);
+        } else {
+            console.error("Error: windowSoundName or windowSoundObject invalid!");
+        }
+    }
+
+    export function stopSound() {
+        if (windowSoundObject) {
+            windowSoundObject.stop();
+            clearInterval(soundInterval);
+            soundPosition = 0;
+        } else {
+            console.error("Error: windowSoundName or windowSoundObject invalid!");
+        }
+    }
+
+    export function toggleSound() {
+        if (windowSoundObject) {
+            if (windowSoundObject.playing()) {
+                pauseSound();
+            } else {
+                playSound();
+            }
+        } else {
+            console.error("Error: windowSoundObject invalid!");
         }
     }
 </script>
