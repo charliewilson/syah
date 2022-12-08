@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import Window from "./Window.svelte";
     export let aboutWindow;
 </script>
