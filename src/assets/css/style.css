@@ -153,8 +153,8 @@ a {
 #browserWindow {
     background:#ccc;
     flex:1;
-    font-family:'Times New Roman', Times, serif;
-    font-size:14px;
+    /* font-family:'Times New Roman', Times, serif; */
+    /* font-size:14px; */
     padding:8px;
     overflow-y:scroll;
     overflow-x:auto;
@@ -162,6 +162,11 @@ a {
 
 #browserWindow a {
     color:#66D;
+}
+
+#browserWindow h1 {
+    margin-top:10px;
+    font-size:22px;
 }
 
 .browser-bar {

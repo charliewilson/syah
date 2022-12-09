@@ -53,7 +53,7 @@
                 pageContents = text;
                 loading = false;
             }).catch(function(err){
-                pageContents = "<h3 style='margin-top:10px;''>Page not found!</h3><p>Unfortunately, this page cannot be found.</p><p><a href='index.html'>Return to the homepage</a> and try again.</p>";
+                pageContents = "<h1>Page not found!</h1><p>Unfortunately, this page cannot be found.</p><p><a href='index.html'>Return to the homepage</a> and try again.</p>";
                 loading = false;
             });
     }
