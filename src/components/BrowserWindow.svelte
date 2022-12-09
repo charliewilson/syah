@@ -53,7 +53,7 @@
                 pageContents = text;
                 loading = false;
             }).catch(function(err){
-                pageContents = "<h1>404!</h1>";
+                pageContents = "<h3 style='margin-top:10px;''>Page not found!</h3><p>Unfortunately, this page cannot be found.</p><p><a href='index.html'>Return to the homepage</a> and try again.</p>";
                 loading = false;
             });
     }
@@ -74,8 +74,8 @@
 <Window
     bind:windowObject={browserWindow}
     windowTitle={thisPage+" &mdash; syahNet"}
-    windowWidth = 640
-    windowHeight = 480
+    windowWidth = 360
+    windowHeight = 450
     on:windowShow={() => navigate("index.html")}
     >
     <div class="window-inner flex-container">
