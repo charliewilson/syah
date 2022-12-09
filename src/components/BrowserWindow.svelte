@@ -4,44 +4,98 @@
     import { writable } from 'svelte/store';
         
     export let browserWindow;
-    // export const BrowserPageStackStore = writable([]);
+    export const BrowserPagePastStackStore = writable([]);
+    export const BrowserPageFutureStackStore = writable([]);
+    let canGoBack = false;
+    let canGoForward = false;
+    let hasNavigated = false;
 
-// export function openWindow(windowNode) {
-//   WindowStackStore.update((stack) => {
-//     stack.unshift(windowNode.getNode());
-//     return stack;
-//   });
-// }
+    function addHistory(page) {
+        BrowserPagePastStackStore.update((stack) => {
+            if (stack[0] !== page) {
+                stack.unshift(page);   
+            }
+            console.log("Past stack: ", stack);
+            return stack;
+        });
+        BrowserPageFutureStackStore.set([]);
+    }
 
-// export function closeWindow(windowNode) {
-//   WindowStackStore.update((stack) => {
-//     return stack.filter(function(el){ 
-//       return el != windowNode;
-//     });
-//   });
-// }
+    function clearHistory() {
+        BrowserPagePastStackStore.set([]);
+        BrowserPageFutureStackStore.set([]);
+        hasNavigated = false;
+    }
 
-// export function activateWindow(windowNode) {
-//   WindowStackStore.update((stack) => {
-//     let newstack = stack.filter(function(el){
-//       return el != windowNode;
-//     });
-//     newstack.unshift(windowNode);
-//     return newstack;
-//   });
-// }
+    function goBack() {
+        let shiftPage;
+        BrowserPagePastStackStore.update((stack) => {
+            if (stack.length > 0) {
+                shiftPage = stack.shift();
+            }
+            console.log("Past stack: ", stack);
+            return stack;
+        });
+        BrowserPageFutureStackStore.update((stack) => {
+            stack.unshift(shiftPage)
+            console.log("Future stack: ", stack);
+            return stack;
+        });
+        navigate(shiftPage, true);
+    }
+
+    function goForward() {
+        let shiftPage;
+        BrowserPageFutureStackStore.update((stack) => {
+            if (stack.length > 0) {
+                shiftPage = stack.shift();
+            }
+            console.log("Future stack: ", stack);
+            return stack;
+        });
+        BrowserPagePastStackStore.update((stack) => {
+            stack.unshift(shiftPage)
+            console.log("Past stack: ", stack);
+            return stack;
+        });
+        navigate(shiftPage, true);
+    }
+
+    BrowserPagePastStackStore.subscribe(value => {
+        if (value.length > 0) {
+            canGoBack = true;
+        } else {
+            canGoBack = false;
+        }
+    });
+
+    BrowserPageFutureStackStore.subscribe(value => {
+        if (value.length > 0) {
+            canGoForward = true;
+        } else {
+            canGoForward = false;
+        }
+    });
 
     let pageContents = "";
     let loading = false;
     let currentPage = "index.html";
     let thisPage = "index.html";
 
-    export async function navigate(path) {
+    export async function navigate(path, avoidHistory = false) {
         let toPath = (path !== "" ? path : "index.html")
-        
+
         loading = true;
         currentPage = toPath;
         thisPage = toPath;
+
+        if (!hasNavigated) {
+            hasNavigated = true;
+        } else {
+            if (!avoidHistory) {
+                addHistory(toPath);
+            }
+        }
 
         fetch("/syahnet/"+toPath)
             .then((response) => {
@@ -77,11 +131,12 @@
     windowWidth = 360
     windowHeight = 450
     on:windowShow={() => navigate("index.html")}
+    on:windowClose={() => clearHistory()}
     >
     <div class="window-inner flex-container">
         <div class="browser-bar">
-            <button class="button-icon" disabled>&lt;</button>
-            <button class="button-icon" disabled>&gt;</button>
+            <button class="button-icon" on:click={() => goBack()} disabled="{!canGoBack}">&lt;</button>
+            <button class="button-icon" on:click={() => goForward()} disabled="{!canGoForward}">&gt;</button>
             <button class="button-icon" on:click={() => navigate('index.html')}>&#8962;</button>
             <input type="text" bind:value={currentPage}
             on:keydown={(k) => {
