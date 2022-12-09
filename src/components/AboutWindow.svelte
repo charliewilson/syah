@@ -12,7 +12,7 @@
     >
     <div class="flex-container">
         <div style="height:120px; flex:none;">
-            <span style="position:relative; left: 98px; top:85px; color:#FFF;">version 1.3 beta</span>
+            <span style="position:relative; left: 98px; top:85px; color:#FFF;">version 1.5 beta</span>
         </div>
         <div style="flex:1;" class="window-inner">
             <div class="bevelled" style="width:100%; background-color:rgba(0,0,0,0.75); color:#FFF; padding:8px; box-sizing: border-box; line-height:15px; top:100px; left:60px;">
