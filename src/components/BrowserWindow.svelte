@@ -105,9 +105,11 @@
                 return response.text()})
             .then((text) => {
                 pageContents = text;
+                document.getElementById("browserWindow").scrollTop = 0;
                 loading = false;
             }).catch(function(err){
                 pageContents = "<h1>Page not found!</h1><p>Unfortunately, this page cannot be found.</p><p><a href='index.html'>Return to the homepage</a> and try again.</p>";
+                document.getElementById("browserWindow").scrollTop = 0;
                 loading = false;
             });
     }
