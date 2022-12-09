@@ -13,8 +13,8 @@ export let externalLink = "";
 <div
 class="desktopIcon"
 on:click={(externalLink !== "") ? window.open(externalLink, '_blank') : openWindow(targetWindow)}>
-    <img alt="{name}" src="./icons/{icon}.png">
-    <span>{name}</span>
+    <img alt="{name}" src="/ico/{icon}.png">
+    <span>{@html name}</span>
 </div>
 
 <style>

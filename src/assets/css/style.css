@@ -46,6 +46,8 @@ body {
 .title-bar-text {
     white-space:nowrap;
     overflow:hidden;
+    text-overflow: ellipsis;
+    margin-right:10px;
 }
 
 .albumArt {
@@ -98,6 +100,10 @@ body {
 
 .window-inner p:last-child {
     margin-bottom:0;
+}
+
+.desktopIcon {
+    vertical-align:top;
 }
 
 .bevelled {

@@ -16,10 +16,6 @@
   icon="about"
   name="About" />
 <DesktopIcon
-  targetWindow={linksWindow}
-  icon="links"
-  name="Links" />
-<DesktopIcon
   targetWindow={crtFolderWindow}
   icon="folder"
   name="CRT" />
@@ -29,7 +25,5 @@
   name="twenty-five" />
 
 <AboutWindow bind:aboutWindow/>
-<LinksWindow bind:linksWindow/>
-
 <CrtFolderWindow bind:crtFolderWindow/>
 <TwentyfiveFolderWindow bind:twentyfiveFolderWindow/>

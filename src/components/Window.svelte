@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+
     import { WindowStackStore, closeWindow, activateWindow } from "../assets/js/WindowStack";
 
     const windowStackMaxPosition = 999;
@@ -11,30 +14,26 @@
     export let windowActive = false;
     export let windowStackPosition = 0;
     export let windowBackgroundColour = "#EEE";
-    export let windowSoundObject = null;
-    export let windowSoundName = null;
-    export let isPlaying = false;
-    export let soundPosition = 0;
 
     let win,
         dragging = false,
         pos1 = 0,
         pos2 = 0,
         pos3 = 0,
-        pos4 = 0,
-        soundInterval = null;
+        pos4 = 0;
 
     export const windowObject = {
-        toggle() {
-            windowVisible = !windowVisible
-            stopSound();
-        },
         show() {
-            windowVisible = true;
+            if (windowVisible == false) {
+                windowVisible = true;
+                dispatch('windowShow');
+            }
         },
         hide() {
-            windowVisible = false;
-            stopSound();
+            if (windowVisible == true) {
+                windowVisible = false;
+                dispatch('windowClose');
+            }
         },
         getNode() {
             return win;
@@ -57,9 +56,9 @@
 
     function startDrag(e) {
         dragging = true;
-        activateWindow(win)
+        activateWindow(win);
         e = e || window.event;
-        e.preventDefault();
+        // e.preventDefault();
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -77,7 +76,7 @@
 
     function updateDrag(e) {
         e = e || window.event;
-        e.preventDefault();
+        // e.preventDefault();
         // calculate the new cursor position:
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
@@ -106,68 +105,23 @@
         win.style.left = window.innerWidth - win.offsetWidth;
         }
     }
-
-    export function playSound() {
-        if (windowSoundName && windowSoundObject) {
-            windowSoundObject.play();
-
-            soundInterval = setInterval(function(){
-                let duration = windowSoundObject.duration()
-                let seek = windowSoundObject.seek();
-                soundPosition = (seek/duration) * 100;
-            }, 1000);
-        } else {
-            console.error("Error: windowSoundName or windowSoundObject invalid!");
-        }
-    }
-
-    export function pauseSound() {
-        if (windowSoundName && windowSoundObject) {
-            windowSoundObject.pause();
-            clearInterval(soundInterval);
-        } else {
-            console.error("Error: windowSoundName or windowSoundObject invalid!");
-        }
-    }
-
-    export function stopSound() {
-        if (windowSoundObject) {
-            windowSoundObject.stop();
-            clearInterval(soundInterval);
-            soundPosition = 0;
-        } else {
-            console.error("Error: windowSoundName or windowSoundObject invalid!");
-        }
-    }
-
-    export function toggleSound() {
-        if (windowSoundObject) {
-            if (windowSoundObject.playing()) {
-                pauseSound();
-            } else {
-                playSound();
-            }
-        } else {
-            console.error("Error: windowSoundObject invalid!");
-        }
-    }
 </script>
 
 <div class="window"
+bind:this={win}
 style:width="{windowWidth != null ? windowWidth+'px' : 'auto'}"
 style:height="{windowHeight != null ? windowHeight+'px' : 'auto'}"
 style:display="{windowVisible ? 'block' : 'none'}"
 style:z-index="{windowStackPosition}"
-on:mousedown={activateWindow(win)}
-bind:this={win}>
+on:mousedown={() => activateWindow(win)}>
     <div class="flex-container">
         <div class="title-bar"
         class:grabbing={dragging}
         class:inactive={!windowActive}
         on:pointerdown={startDrag}>
-            <div class="title-bar-text">{windowTitle}</div>
+            <div class="title-bar-text">{@html windowTitle}</div>
             <div class="title-bar-controls">
-                <button aria-label="Close" on:click={closeWindow(win)}></button>
+                <button aria-label="Close" on:click={() => closeWindow(win)}></button>
             </div>
         </div>
         {#if windowBackground}

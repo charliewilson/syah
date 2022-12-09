@@ -1,9 +1,11 @@
 <script>
   import Window from "./Window.svelte";
+  import TwentyfiveWindow from "./TwentyfiveWindow.svelte";
   import TwentyfiveLyricsWindow from "./TwentyfiveLyricsWindow.svelte";
   import DesktopIcon from "./DesktopIcon.svelte";
 
   export let twentyfiveFolderWindow;
+  let twentyfiveWindow;
   let twentyfiveLyricsWindow;
 </script>
 
@@ -15,6 +17,11 @@
   windowBackgroundColour = "#FFF"
   >
   <div class="window-inner">
+    <DesktopIcon
+    targetWindow={twentyfiveWindow}
+    icon="mp3"
+    name="twenty-five.mp3" />
+
     <DesktopIcon
     targetWindow={twentyfiveLyricsWindow}
     icon="txt"
@@ -28,4 +35,5 @@
   </div>
 </Window>
 
+<TwentyfiveWindow bind:twentyfiveWindow />
 <TwentyfiveLyricsWindow bind:twentyfiveLyricsWindow />
