@@ -8,7 +8,6 @@
     export const BrowserPageFutureStackStore = writable([]);
     let canGoBack = false;
     let canGoForward = false;
-    let hasNavigated = false;
 
     function addHistory(page) {
         BrowserPagePastStackStore.update((stack) => {
@@ -24,16 +23,17 @@
     function clearHistory() {
         BrowserPagePastStackStore.set([]);
         BrowserPageFutureStackStore.set([]);
-        hasNavigated = false;
     }
 
     function goBack() {
         let shiftPage;
+        let destPage;
         BrowserPagePastStackStore.update((stack) => {
             if (stack.length > 0) {
                 shiftPage = stack.shift();
             }
             console.log("Past stack: ", stack);
+            destPage = stack[0];
             return stack;
         });
         BrowserPageFutureStackStore.update((stack) => {
@@ -41,11 +41,13 @@
             console.log("Future stack: ", stack);
             return stack;
         });
-        navigate(shiftPage, true);
+        console.log("Shifted: ", shiftPage)
+        navigate(destPage, true);
     }
 
     function goForward() {
         let shiftPage;
+        let destPage;
         BrowserPageFutureStackStore.update((stack) => {
             if (stack.length > 0) {
                 shiftPage = stack.shift();
@@ -56,13 +58,14 @@
         BrowserPagePastStackStore.update((stack) => {
             stack.unshift(shiftPage)
             console.log("Past stack: ", stack);
+            destPage = stack[0];
             return stack;
         });
-        navigate(shiftPage, true);
+        navigate(destPage, true);
     }
 
     BrowserPagePastStackStore.subscribe(value => {
-        if (value.length > 0) {
+        if (value.length > 1) {
             canGoBack = true;
         } else {
             canGoBack = false;
@@ -81,6 +84,7 @@
     let loading = false;
     let currentPage = "index.html";
     let thisPage = "index.html";
+    addHistory(thisPage);
 
     export async function navigate(path, avoidHistory = false) {
         let toPath = (path !== "" ? path : "index.html")
@@ -89,12 +93,8 @@
         currentPage = toPath;
         thisPage = toPath;
 
-        if (!hasNavigated) {
-            hasNavigated = true;
-        } else {
-            if (!avoidHistory) {
-                addHistory(toPath);
-            }
+        if (!avoidHistory) {
+            addHistory(thisPage);
         }
 
         fetch("/syahnet/"+toPath)
