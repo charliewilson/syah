@@ -149,7 +149,7 @@
             }}
             class:disabled={loading}
             >
-            <button on:click={() => navigate(currentPage)}>
+            <button class="button-icon" on:click={() => navigate(currentPage)}>
                 {loading ? 'Loading...' : 'Go'}
             </button>
         </div>
