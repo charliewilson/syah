@@ -1,6 +1,5 @@
 <script>
 // @ts-nocheck
-
     import Window from "./Window.svelte";
     export let aboutWindow;
 </script>
@@ -9,6 +8,7 @@
     bind:windowObject={aboutWindow}
     windowTitle="About syahOS"
     windowBackground="/apps/about/assets/background.png"
+    autoOpen
     >
     <div class="flex-container">
         <div style="height:120px; flex:none;">

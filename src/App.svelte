@@ -28,7 +28,7 @@
   icon="folder"
   name="twenty-five" />
 
-<AboutWindow bind:aboutWindow/>
 <BrowserWindow bind:browserWindow/>
 <CrtFolderWindow bind:crtFolderWindow/>
 <TwentyfiveFolderWindow bind:twentyfiveFolderWindow/>
+<AboutWindow bind:aboutWindow/>

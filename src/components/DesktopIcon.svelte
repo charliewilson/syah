@@ -7,6 +7,11 @@ export let targetWindow;
 export let icon;
 export let name;
 export let externalLink = "";
+export let autoOpen = false;
+
+if (autoOpen) {
+    (externalLink !== "") ? window.open(externalLink, '_blank') : openWindow(targetWindow)
+}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

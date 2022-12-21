@@ -18,6 +18,8 @@ body {
     position: absolute;
     z-index: 9;
     display:none;
+    left:16px;
+    top:72px;
 }
 
 .window[data-song] {

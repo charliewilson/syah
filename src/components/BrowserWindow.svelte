@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import Window from "./Window.svelte";
     import { afterUpdate } from "svelte";
     import { writable } from 'svelte/store';
@@ -14,7 +16,6 @@
             if (stack[0] !== page) {
                 stack.unshift(page);   
             }
-            console.log("Past stack: ", stack);
             return stack;
         });
         BrowserPageFutureStackStore.set([]);
@@ -32,16 +33,13 @@
             if (stack.length > 0) {
                 shiftPage = stack.shift();
             }
-            console.log("Past stack: ", stack);
             destPage = stack[0];
             return stack;
         });
         BrowserPageFutureStackStore.update((stack) => {
             stack.unshift(shiftPage)
-            console.log("Future stack: ", stack);
             return stack;
         });
-        console.log("Shifted: ", shiftPage)
         navigate(destPage, true);
     }
 
@@ -52,12 +50,10 @@
             if (stack.length > 0) {
                 shiftPage = stack.shift();
             }
-            console.log("Future stack: ", stack);
             return stack;
         });
         BrowserPagePastStackStore.update((stack) => {
             stack.unshift(shiftPage)
-            console.log("Past stack: ", stack);
             destPage = stack[0];
             return stack;
         });

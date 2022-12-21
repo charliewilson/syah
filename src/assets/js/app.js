@@ -24,9 +24,6 @@ export function dragElement(elmnt) {
     pos4 = e.clientY;
     // set the element's new position:
 
-    // console.log("x: ", pos1);
-    // console.log("y: ", pos2);
-
     //Don't go past the top or bottom
     if (((elmnt.offsetTop - pos2) > 0) && (((elmnt.offsetTop - pos2) + elmnt.offsetHeight) < window.innerHeight)) {
         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";

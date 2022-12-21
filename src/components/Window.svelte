@@ -1,5 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     const dispatch = createEventDispatcher();
 
     import { WindowStackStore, closeWindow, activateWindow } from "../assets/js/WindowStack";
@@ -14,6 +14,7 @@
     export let windowActive = false;
     export let windowStackPosition = 0;
     export let windowBackgroundColour = "#EEE";
+    export let autoOpen = false;
 
     let win,
         dragging = false,
@@ -84,9 +85,6 @@
         pos4 = e.clientY;
         // set the element's new position:
 
-        // console.log("x: ", pos1);
-        // console.log("y: ", pos2);
-
         //Don't go past the top or bottom
         if (((win.offsetTop - pos2) > 0) && (((win.offsetTop - pos2) + win.offsetHeight) < window.innerHeight)) {
         win.style.top = (win.offsetTop - pos2) + "px";
@@ -105,6 +103,22 @@
         win.style.left = window.innerWidth - win.offsetWidth;
         }
     }
+
+    onMount(() => {
+        console.log("mounted");
+        if (typeof win != undefined) {
+            console.log("window node defined");
+            if (autoOpen) {
+                console.log("autoopen is true");
+
+                // (window open logic is replicated here to avoid the race condition where the )
+                WindowStackStore.update((stack) => {
+                    stack.unshift(win);
+                    return stack;
+                });
+            }
+        }
+    });
 </script>
 
 <div class="window"
