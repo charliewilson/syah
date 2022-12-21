@@ -75,10 +75,10 @@
           jw / ad / cw / mn</p>
 
         <p>mastered by Space Magnetic Studio<br>
-          contact them at: <a target="_blank" href="https://space-magnetic.com">space-magnetic.com</a>
+          contact them at: <a target="_blank" rel="noreferrer" href="https://space-magnetic.com">space-magnetic.com</a>
 
         </p><p>art by Josh Wilson<br>
-          contact them at: <a target="_blank" href="https://instagram.com/joshjcwlsn">@joshjcwlsn</a></p>
+          contact them at: <a target="_blank" rel="noreferrer" href="https://instagram.com/joshjcwlsn">@joshjcwlsn</a></p>
 
       </div>
 </Window>
